@@ -1,6 +1,5 @@
 A bootcamp assignment to practice:
 
-
     Build a login and registration page with validations
     Practice Flash messages
     Practice session
@@ -8,8 +7,8 @@ A bootcamp assignment to practice:
 
 
 To do:
-1. get birthday stuff working
-2. Log out at root access only if the user clicked "log out" link
+1. get birthday stuff working - done
+2. Log out at root access only if the user clicked "log out" link - done
 3. stylesheets
 4. bonus material
 

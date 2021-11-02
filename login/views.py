@@ -5,16 +5,10 @@ import bcrypt
 
 # GET method returning the index page render
 def index(request):
-   # This SEEMS to log the user out if they route to the login page, but 
-   # i need a better approach to ensure that the user isn't logged out
-   # for navigating here without clicking "log out."
-   request.session.flush()
    return render(request, 'index.html')
 
 # POST method for the registration, with an if for success/fail
 def reg(request):
-   #if User.objects.birthday == '':
-   #   User.objects.birthday = None
    errors = User.objects.validator(request.POST)
    if len(errors) > 0:
       for key, value in errors.items():
@@ -37,6 +31,10 @@ def login(request):
          request.session['fname'] = logged_in.fname
          return redirect('/success')
    messages.error(request, "Your username or password is incorrect.")
+   return redirect('/')
+
+def logout(request):
+   request.session.flush()
    return redirect('/')
 
 # GET method rendering the successful registration/login page

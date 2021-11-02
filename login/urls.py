@@ -9,5 +9,7 @@ urlpatterns = [
    # POST method for the login
    path('login',  views.login),
    # GET method rendering the successful registration/login page
-   path('success', views.success)
+   path('success', views.success),
+   # GET method logging the user out
+   path('logout',  views.logout)
 ]

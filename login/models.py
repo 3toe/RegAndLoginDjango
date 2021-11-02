@@ -1,5 +1,7 @@
 from django.db import models
 import re
+import datetime
+from dateutil.relativedelta import relativedelta
 
 class LoginManager(models.Manager):
    def validator(self, postData):
@@ -8,10 +10,12 @@ class LoginManager(models.Manager):
          errors['fname'] = "First name should be only letters and at least 2 characters."
       if len(postData['lname']) < 2 or not postData['lname'].isalpha():
          errors['lname'] = "Last name should be only letters and at least 2 characters."
+      bday = datetime.datetime.strptime(postData['birthday'], "%Y-%m-%d").date()
+      if bday > datetime.date.today() - relativedelta(years=13):
+         errors['lname'] = "You must have been born at least 13 years in the past to use this site."
       EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
       if not EMAIL_REGEX.match(postData['email']):           
-         errors['email'] = "Email address is required and with proper A@B.XYZ format."
-      # not doing anything:   
+         errors['email'] = "Email address is required and with proper A@B.XYZ format."  
       if User.objects.filter(email=postData['email']).exists():
          errors['emailreg'] = "The email address entered is already registered."
       if len(postData['password']) < 8:
