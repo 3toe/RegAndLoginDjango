@@ -8,8 +8,43 @@
 </head>
 <body>
    <div id="container">
-      <h3>Success! Welcome {{request.session.fname}}</h3>
-      <a href="/logout">Log Out</a>
+
+      <div id="header">
+         <h3>Welcome to the wall, {{request.session.fname}}</h3>
+         <a href="/logout">Log Out</a>
+      </div>
+
+      <form action="postMessage" method="POST">
+      {% csrf_token %}
+         
+         <h4>Post a message!</h4>
+         <textarea class="entry" rows="3" cols="50" name="postMessage" placeholder=" Type your message here..."></textarea>
+         <input type="Submit" value="Post a message">
+
+      </form>
+
+      <div id="messages">
+
+         {% for post in postList %}    
+            <p class="postHead">{{post.userid.fname}} {{post.userid.lname}} at {{post.created_at}} straight up was like...</p>
+            <p class="postBody">{{post.postMessage}}</p>
+            {% for com in comList %}
+               <p class="comHead">{{com.userid.fname}} {{com.userid.lname}} said this shit at {{com.created_at}} in response:</p>
+               <p class="comBody">{{com.commentMessage}}</p>
+            {% endfor %}
+
+            <form action="postComment/{{post.id}}" method="POST">
+            {% csrf_token %}
+         
+               <h6>Post a comment on that noise!</h6>
+               <textarea class="entry" rows="2" cols="30" name="postComment" placeholder=""..."></textarea>
+               <input type="Submit" value="Add comment">
+
+            </form>
+         {% endfor %}
+
+      </div>
+
    </div>   
 </body>
 </html>

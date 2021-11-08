@@ -14,3 +14,5 @@ To do:
 
 
 As always, I am aware that my key is in the repo, this is not to be deployed, but merely an exercise.
+
+Rev2- included a basic post & comment "wall" page in place of the blank "success" page after registration or login.
